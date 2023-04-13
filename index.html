@@ -499,7 +499,7 @@
                     _this.isDraggingProgress = true;
                 };
 
-                audio.currentTime = 0;
+               
                 // Progress chạy theo bài hát
                 audio.ontimeupdate = function () {
                     if (_this.isDraggingProgress && audio.duration) {
@@ -635,12 +635,17 @@
             },
 
             loadConfig: function () {
-                this.isRandom = this.config.isRandom;
-                this.isRepeat = this.config.isRepeat;
-                audio.currentTime = this.config.lastProgress;
-                audio.volume = this.config.lastVolume;
-                volumeProgress.value = this.config.lastVolume * 100;
-                this.currentIndex = this.config.lastIndex;
+                this.isRandom = this.config.isRandom === 'undefined' ? false : this.config.isRandom;
+                this.isRepeat = this.config.isRepeat === 'undefined' ? false : this.config.isRepeat;
+             
+
+                audio.currentTime = this.config.lastProgress === 'undefined' ? 0 : this.config.lastProgress;
+
+                audio.volume = this.config.lastVolume === 'undefined' ? 1 : this.config.lastVolume;
+          
+                volumeProgress.value = audio.volume * 100;
+
+                this.currentIndex = this.config.lastIndex === 'undefined' ? 0 : this.config.lastIndex;
             },
 
             loadCurrentSong: function () {
@@ -723,7 +728,7 @@
             },
             start: function () {
                 // Load config
-                // this.loadConfig();
+                this.loadConfig();
                 // Định nghĩa các thuộc tính cho Object
                 this.defineProperties();
 
