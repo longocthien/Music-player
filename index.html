@@ -113,8 +113,6 @@
             <!-- Dashboard -->
 
             <div class="dashboard">
-
-                
                 <video
                     autoplay
                     loop
@@ -235,7 +233,6 @@
             </div>
         </div>
         <footer>
-
             <code>© Made by Thiện - April, 2023</code>
         </footer>
         <!-- Design from: https://static.collectui.com/shots/3671744/musicloud-revolutionary-app-for-music-streaming-large -->
@@ -516,6 +513,7 @@
                         const progressPercent = Math.trunc(
                             (audio.currentTime / audio.duration) * 100
                         );
+
                         progress.value = progressPercent;
 
                         _this.startTimer(audio.currentTime);
@@ -541,6 +539,26 @@
                     audio.currentTime = Math.trunc(
                         (progress.value / 100) * audio.duration
                     );
+                };
+
+                // Bài hát sẽ lên vị trí vuốt
+                progress.ontouchend = function () {
+                    if (_this.isDraggingProgress) {
+                        // tính toán vị trí vuốt
+                        const touchPosition = event.changedTouches[0].pageX;
+                        const progressWidth = progress.offsetWidth;
+                        const progressStart =
+                            progress.getBoundingClientRect().left;
+                        const progressEnd =
+                            progress.getBoundingClientRect().right;
+                        const progressPercent =
+                            (touchPosition - progressStart) / progressWidth;
+
+                        // cập nhật thời gian bài hát
+                        audio.currentTime = Math.trunc(
+                            progressPercent * audio.duration
+                        );
+                    }
                 };
 
                 // Next song
@@ -622,7 +640,7 @@
                     currentVolume = audio.volume;
                 };
 
-                // Khi tua volume
+                // Khi tua volume pc
                 volumeProgress.onmousemove = function () {
                     audio.volume = volumeProgress.value / 100;
                     currentVolume = audio.volume;
@@ -635,16 +653,39 @@
                     }
                 };
 
-                // Khi tua progress
+                // Khi tua volume điện thoại
+                volumeProgress.ontouchmove = function () {
+                    audio.volume = volumeProgress.value / 100;
+                    currentVolume = audio.volume;
+                    if (audio.volume === 0) {
+                        volumeHigh.style.display = 'none';
+                        volumeMute.style.display = 'block';
+                    } else {
+                        volumeHigh.style.display = 'block';
+                        volumeMute.style.display = 'none';
+                    }
+                };
+
+                // Khi tua progress pc
                 progress.onmousemove = function () {
                     if (!_this.isDraggingProgress) {
                         let TimeSkip = (progress.value * audio.duration) / 100;
                         _this.startTimer(TimeSkip);
                     }
                 };
+                // Khi tua progress điện thoại
+                progress.ontouchmove = function () {
+                    if (_this.isDraggingProgress) {
+                        let TimeSkip = (progress.value * audio.duration) / 100;
+                        _this.startTimer(TimeSkip);
+                    }
+                };
+
+                progress.oninput = function () {};
             },
 
             loadConfig: function () {
+                // Nếu mới đầu vào thì mọi thứ được setup khi điều kiện true
                 this.isRandom =
                     typeof this.config.isRandom === 'undefined'
                         ? false
