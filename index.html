@@ -635,17 +635,18 @@
             },
 
             loadConfig: function () {
-                this.isRandom = this.config.isRandom === 'undefined' ? false : this.config.isRandom;
-                this.isRepeat = this.config.isRepeat === 'undefined' ? false : this.config.isRepeat;
+                this.isRandom = typeof this.config.isRandom === 'undefined' ? false : this.config.isRandom;
+              
+                this.isRepeat = typeof this.config.isRepeat === 'undefined' ? false : this.config.isRepeat;
              
 
-                audio.currentTime = this.config.lastProgress === 'undefined' ? 0 : this.config.lastProgress;
+                audio.currentTime = typeof this.config.lastProgress === 'undefined' ? 0 : this.config.lastProgress;
 
-                audio.volume = this.config.lastVolume === 'undefined' ? 1 : this.config.lastVolume;
+                audio.volume = typeof this.config.lastVolume === 'undefined' ? 1 : this.config.lastVolume;
           
                 volumeProgress.value = audio.volume * 100;
 
-                this.currentIndex = this.config.lastIndex === 'undefined' ? 0 : this.config.lastIndex;
+                this.currentIndex = typeof this.config.lastIndex === 'undefined' ? 0 : this.config.lastIndex;
             },
 
             loadCurrentSong: function () {
