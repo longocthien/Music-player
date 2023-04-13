@@ -305,3 +305,13 @@ header h2 {
     color: #999;
     font-size: 18px;
 }
+
+footer {
+    height: 8vh;
+    margin: 10px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+}
