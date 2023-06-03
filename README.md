@@ -8,14 +8,11 @@ This is the official website of the Music Player, a web application that allows 
 
 - **Remember User Information:** The website utilizes the localStorage feature to remember user information. When the user interacts with the music player, the application saves information about the volume, the currently playing song, the progress of the song, whether shuffle or repeat is enabled, and other relevant settings. This information is stored locally and persists even when the application is closed. Upon reopening the application, the music player will restore the previous state, allowing users to resume their music playback seamlessly.
 
-- **Responsive Design:** The website is designed to be responsive, adapting to different screen sizes and devices. Users can enjoy the music player on their desktop, laptop, tablet, or mobile phone.
-
 ## Technologies Used
 
 - HTML5: Used for structuring the website's content and elements.
 - CSS3: Used for styling the website's layout, colors, and typography.
 - JavaScript: Used for implementing the music player functionality, interactivity, and localStorage feature.
-- Responsive: Used as a CSS framework for responsive design and pre-built components.
 - Git: Used for version control and collaboration during development.
 - GitHub Pages: Used for hosting the website.
 
